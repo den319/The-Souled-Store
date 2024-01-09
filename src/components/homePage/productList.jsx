@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import useFetchList from "../../customHooks/useFetchList";
 import { mapDataForHomePage } from "../../utils/filterFunctions";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
+import ChevronLeft from "../../assets/svg/chevronLeft";
+import ChevronRight from "../../assets/svg/chevronRight";
 
 
 
@@ -13,18 +15,43 @@ export default function ProductList({url, heading}) {
 
     const {isMobile}= useContext(ModalContext);
 
+    const slideRef= useRef(0);
+
     const [productList, error]= useFetchList(url, mapDataForHomePage);
+
+    const [hiddenLeft, setHiddenLeft]= useState(false);
+    const [hiddenRight, setHiddenRight]= useState(false);
 
     const arr= new Array(20).fill("");
 
+    function slideLeft() {
+        const container= slideRef.current;
+        
+        if(slideRef.current.scrollLeft <= 0) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: -200, behavior: 'smooth' });
+        }
+    }
+
+    function slideRight() {
+        const container= slideRef.current;
+
+        if(slideRef.current.scrollLeft >= 4200) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: 200, behavior: 'smooth' });
+        }
+    }
+
     return (
-        <div className="w-full p-[10px] min-[425px]:p-[1rem]">
+        <div className="relative w-full p-[10px] min-[425px]:p-[1rem]">
             <div className="text-[18px] py-[10px] font-bold w-full flex md:justify-center md:text-[28px]">
                 {heading}
             </div>
 
-            <div className="overflow-x-scroll">
-                <ul className="flex items-center w-max">
+            <div className="overflow-x-hidden" ref= {slideRef}>
+                <ul className="flex items-center scroll-smooth w-full">
                     {
                         (productList.length > 0 && productList) ?
                             productList.map((product) => {
@@ -92,6 +119,19 @@ export default function ProductList({url, heading}) {
                             })
                     }
                 </ul>
+            </div>
+
+            
+            <div className="absolute top-[45%] left-[1rem] py-[10px] pl-[9px] pr-[10px] z-10 
+                rounded-full bg-black opacity-50 cursor-pointer sm:left-[2rem] lg:ml-[1rem]" 
+                onClick={() => slideLeft()}>
+                <ChevronLeft width={"20px"} height={"20px"} color={"#ffffff"} effect={"md:w-[35px] md:h-[35px]"} />
+            </div>
+        
+            <div className="absolute top-[45%] right-[1rem] py-[10px] pl-[9px] pr-[10px] z-20 
+                rounded-full bg-black opacity-50 cursor-pointer sm:right-[2rem] lg:mr-[1rem]" 
+                onClick={() => slideRight()}>
+                <ChevronRight width={"20px"} height={"20px"} color={"#ffffff"} effect={"md:w-[35px] md:h-[35px]"} />
             </div>
         </div>
     )

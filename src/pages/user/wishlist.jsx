@@ -12,6 +12,8 @@ export default function Wishlist() {
 
     const {whishlistItems, isAuthenticated}= useContext(UserContext);
 
+    
+
     return (
         <div className="w-full h-full flex items-center justify-center">
             {
@@ -57,7 +59,8 @@ export default function Wishlist() {
                 :
                 
                 // non-empty whishlist
-                <div className="w-full xl:max-w-[1500px] flex flex-col justify-center items-center h-full px-[5px] sm:px-[1rem] md:px-[2px]">
+                <div className="w-full flex flex-col justify-center items-center h-full px-[5px] pb-[1rem]
+                    sm:px-[1rem] md:px-[2px] xl:max-w-[1500px]">
                     <div className="w-full py-[1rem] text-[18px] font-grey flex justify-center md:justify-start md:px-[1rem] 2xl:text-[25px] 2xl:py-[2rem]">
                         <p className="font-bold">My Wishlist</p>
                         <p className="font-semibold ml-[5px]">({whishlistItems?.length} items)</p>

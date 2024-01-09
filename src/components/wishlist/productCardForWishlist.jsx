@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import useFetchSingleProduct from "../../customHooks/useFetchSingleProduct";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../context/modalContext";
 import CloseButton from "../../assets/svg/closeButton";
 import SizeModal from "../modals/sizeModal";
@@ -14,11 +14,13 @@ import { UserContext } from "../../context/userContext";
 export default function ProductCardForWishlist({product}) {
 
     const {productUrl}= useContext(ModalContext);
-    const {whishlistItems, setWhishlistItems, token, projectId}= useContext(UserContext);
+    const {whishlistItems, setWhishlistItems, itemsInCart, token, projectId}= useContext(UserContext);
 
     const {productId, displayImage, price, productName, ratings}= product;
 
     const [isModalOpen, setIsModalOpen]= useState(false);
+
+    const [isPresentInCart, setIsPresentInCart]= useState(false);
 
     const [productDetails, error, isLoading]= useFetchSingleProduct(productUrl.getProduct + `${productId}`);
 
@@ -28,6 +30,19 @@ export default function ProductCardForWishlist({product}) {
 
         manageWhishlist(whishlistItems, setWhishlistItems, product, token, projectId);
     }
+
+    useEffect(() => {
+        const found= itemsInCart.find((item) => item.productId === product.productId);
+
+        if(!found) {
+            setIsPresentInCart(false);
+        } else {
+            setIsPresentInCart(true);
+        }
+    },[])
+
+    // console.log("is present: ", isPresentInCart);
+
     return (
         <li key= {productId} className="relative m-[5px] cursor-pointer border border-[#999] rounded-[3px] sm:m-[10px] md:m-[1rem]">
             <Link to={`/product/${productId}`}>
@@ -70,13 +85,28 @@ export default function ProductCardForWishlist({product}) {
                 </div>
             </Link>
 
-            <div className="flex items-center justify-center w-full font-bold text-[15px] border-t border-[#999] 
-                py-[5px] font-green rounded-b-[2px] duration-500
-                hover:text-white hover:bg-[#117a7a] 
-                lg:py-[10px] 2xl:py-[12px] 2xl:text-[18px]"
-                onClick={() => setIsModalOpen(true)}>
-                MOVE TO CART
-            </div>
+            {
+                isPresentInCart ?
+                    <Link to={"/cart"}>
+                        <div className="flex items-center justify-center w-full font-bold text-[15px] border-t border-[#999] 
+                            py-[5px] font-green rounded-b-[2px] duration-500
+                            hover:text-white hover:bg-[#117a7a] 
+                            lg:py-[10px] 2xl:py-[12px] 2xl:text-[18px]">
+                            GO TO CART
+                        </div>
+                    </Link>
+                    
+                    :
+                    <div className="flex items-center justify-center w-full font-bold text-[15px] border-t border-[#999] 
+                        py-[5px] font-green rounded-b-[2px] duration-500
+                        hover:text-white hover:bg-[#117a7a] 
+                        lg:py-[10px] 2xl:py-[12px] 2xl:text-[18px]"
+                        onClick={() => setIsModalOpen(true)}>
+                        MOVE TO CART
+                    </div>
+            }
+
+            
 
             {
                 isModalOpen &&  

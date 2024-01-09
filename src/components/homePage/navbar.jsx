@@ -1,14 +1,18 @@
 
+import { useContext } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
 
 
 
 
 export default function Navbar() {
 
+    const {setActiveTab}= useContext(UserContext);
+
     const navLinks= [
-        {link: "WOMEN", route: "/women"},
-        {link: "MEN", route: "/men"},
+        {link: "WOMEN", route: "women"},
+        {link: "MEN", route: "men"},
         // {link: "KIDS", route: "/kids"}
     ];
 
@@ -35,7 +39,9 @@ export default function Navbar() {
                                 const {link, route}= item;
 
                                 return (
-                                    <NavLink key={link} to={route} className={({ isActive }) =>
+                                    <NavLink key={link} to={`/${route}`} 
+                                        onClick={() => setActiveTab(route)}
+                                        className={({ isActive }) =>
                                         isActive ? "bg-white font-grey w-1/2 lg:w-min"
                                          : 
                                         "w-1/2 bc-red text-white border-x-[0.5px] border-black hover:bg-[#df7c7c] lg:w-min"}>

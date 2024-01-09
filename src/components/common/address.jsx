@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import AddAddressModal from "../modals/addAddressModal";
+import { ModalContext } from "../../context/modalContext";
 
 
 
@@ -9,6 +10,7 @@ import AddAddressModal from "../modals/addAddressModal";
 export default function Address() {
 
     const {user}= useContext(UserContext);
+    const {isMobile}= useContext(ModalContext);
 
     const [isModalOpen, setIsModalOpen]= useState(false);
     const [address, setAddress]= useState(user?.address?.[0]);

@@ -13,7 +13,6 @@ import Carousel from "../../components/carousel/carousel";
 
 
 export default function PageForWomen() {
-    const {apparelForWomen}= useContext(TagContext);
     const {productUrl, isMobile}= useContext(ModalContext);
     const {bigCorousalForWomen, categories, merchandise}= useContext(ImageContext);
     const trendingUrl= productUrl.filterProduct + `{"sellerTag":"trending", "gender":"Women"}&page=1&limit=20`;
@@ -23,7 +22,6 @@ export default function PageForWomen() {
 
     return (
         <div className="relative w-full flex flex-col items-center justify-between font-grey font-bold text-[14px]">
-            <Apparel list={apparelForWomen} />
 
             <div className="w-full xl:max-w-[1500px] flex flex-col justify-center items-center">
 

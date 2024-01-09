@@ -12,8 +12,7 @@ export default function RenderNavbarTag({category, list, effect}) {
 
     return (
         <div className={`${effect} relative group flex justify-between items-center cursor-pointer`}
-            onMouseOver={() => setIsHovered(true)}
-            onMouseOut={() => setIsHovered(false)}>
+            onClick={() => setIsHovered((old) => !old)}>
             <p className="group-hover:text-[#e11b23]">{category}</p>
 
             {

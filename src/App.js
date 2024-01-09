@@ -43,12 +43,19 @@ import JeansForWomen from "./components/clothCategoryForWomen/jeansForWomen";
 import JumpsuitForWomen from "./components/clothCategoryForWomen/jumpsuitsForWomen";
 import JoggersForWomen from "./components/clothCategoryForWomen/joggersForWomen";
 import PantsForWomen from "./components/clothCategoryForWomen/pantsForWomen";
+import Apparel from "./components/homePage/apparel";
+import { TagContext } from "./context/tagContext";
+import { ImageContext } from "./context/imageContext";
+import OfficialMerchandise from "./components/homePage/officialMerchandise";
 
 function App() {
 
   const {setIsMobile, isMobile, cartUrl, whishlistUrl}= useContext(ModalContext);
   const {save_user_and_token, isAuthenticated, setIsAuthenticated, projectId, user,
-        setItemsInCart, setWhishlistItems, whishlistItems, itemsInCart, setTotalPrice}= useContext(UserContext);
+        setItemsInCart, setWhishlistItems, whishlistItems, itemsInCart, setTotalPrice, activeTab}= useContext(UserContext);
+  const {apparelForWomen, apparelForMen}= useContext(TagContext);
+  const {merchandise}= useContext(ImageContext);
+
 
   const navigate= useNavigate();
 
@@ -116,7 +123,15 @@ function App() {
   }, []);
 
   return <div className="App">  
-    <Navbar />  
+    <Navbar /> 
+     
+
+    {
+      activeTab === "men" ?
+        <Apparel list={apparelForMen} />
+        :
+        <Apparel list={apparelForWomen} />
+    }
 
     <Routes>
       <Route path="/" element={<PageForMen />} />
@@ -175,6 +190,8 @@ function App() {
 
       <Route path="*" element= {<Error404 />} />
     </Routes>
+
+    <OfficialMerchandise list={merchandise} />
 
     <Footer />
   </div>;

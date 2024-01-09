@@ -36,7 +36,7 @@ export default function Apparel({list}) {
         {
             men: true,
             women: false,
-            kids: false,
+            // kids: false,
         }
     );
     const [listInMenubar, setListInMenubar]= useState();
@@ -111,7 +111,7 @@ export default function Apparel({list}) {
 
     function sideBarMenu() {
         return (
-            <div className="absolute bg-white top-[-3rem] left-0 w-full h-full z-20 sm:px-[1rem]">
+            <div className="menu absolute bg-white top-0 left-0 w-full h-[2000px] z-30 sm:px-[1rem]">
                 <div className="flex justify-between items-center py-[1rem]">
                     <div className="flex items-center">
                         <div className="">
@@ -151,12 +151,12 @@ export default function Apparel({list}) {
                         className="flex flex-auto justify-between items-center grow h-[2.5rem]
                             w-full font-grey font-semibold text-[15px] bg-[#ebebeb] rounded-[10px]
                             shadow-[0px_0px_20px_-5px_rgba(0,0,0,0.5)]">
-                        <p className={`${activeRoute.men ? "bg-white text-black rounded-[10px]" : ""} w-1/3 h-full
+                        <p className={`${activeRoute.men ? "bg-white text-black rounded-[10px]" : ""} w-1/2 h-full
                             flex items-center justify-center pt-[2px]`}>Men</p>
-                        <p className={`${activeRoute.women ? "bg-white text-black rounded-[10px]" : ""} w-1/3 h-full 
+                        <p className={`${activeRoute.women ? "bg-white text-black rounded-[10px]" : ""} w-1/2 h-full 
                             flex items-center justify-center pt-[2px]`}>Women</p>
-                        <p className={`${activeRoute.kids ? "bg-white text-black rounded-[10px]" : ""} w-1/3 h-full 
-                            flex items-center justify-center pt-[2px]`}>Kids</p>
+                        {/* <p className={`${activeRoute.kids ? "bg-white text-black rounded-[10px]" : ""} w-1/3 h-full 
+                            flex items-center justify-center pt-[2px]`}>Kids</p> */}
                     </nav>
  
                     <ul className="flex flex-col flex-wrap justify-center mt-[1.5rem] 
@@ -349,7 +349,7 @@ export default function Apparel({list}) {
             {
                 isMobile ? 
                 <>
-                    <div className="flex justify-between items-center w-full px-[7px]
+                    <div className="flex justify-between items-center w-full px-[7px] font-grey font-bold text-[14px]
                         shadow-[0_2px_3px_rgba(0,0,0,0.2)] sm:px-[1rem]">
                         <div onClick={() => setIsClickedOnMenu(true)}>
                             <Menu width={"30px"} height={"30px"} color={"#585958"} />
@@ -376,7 +376,7 @@ export default function Apparel({list}) {
 
                 :
 
-                <div className=" w-full px-[3rem]
+                <div className=" w-full px-[3rem] font-grey font-bold text-[14px]
                     shadow-[0_2px_3px_rgba(0,0,0,0.2)]">
                     <div className="relative flex justify-between">
                         <div className="flex items-center">
