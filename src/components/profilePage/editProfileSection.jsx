@@ -88,7 +88,7 @@ export default function EditProfileSection() {
                             General Information
                         </div>
 
-                        <form className="flex flex-col w-full justify-between border-y py-[1.5rem] sm:flex-row">
+                        <div className="flex flex-col w-full justify-between border-y py-[1.5rem] sm:flex-row">
                             <div className="flex flex-col items-start justify-start w-full">
                                 <div className="flex flex-col w-3/4">
                                     <label htmlFor="first-name" className="mb-[5px]">First Name*</label>
@@ -112,17 +112,17 @@ export default function EditProfileSection() {
 
                                     <div className="flex items-center flex-wrap mt-[5px]">
                                         <div className="flex items-center cursor-pointer mr-[1rem]">
-                                            <input type="radio" id="male" name="gender" value={"Male"} checked= {gender === "male"} 
+                                            <input type="radio" id="male" name="gender" value={"Male"} checked= {gender === "male"} readOnly= {true}
                                                 className="w-[1rem]" />
                                             <label htmlFor="male" className="ml-[5px]">Male</label>
                                         </div>
                                         <div className="flex items-center cursor-pointer mr-[1rem]">
-                                            <input type="radio" id="female" name="gender" value={"Female"} checked= {gender === "female"} 
+                                            <input type="radio" id="female" name="gender" value={"Female"} checked= {gender === "female"} readOnly= {true}
                                                 className="w-[1rem]" />
                                             <label htmlFor="female" className="ml-[5px]">Female</label>
                                         </div>
                                         <div className="flex items-center cursor-pointer">
-                                            <input type="radio" id="other" name="gender" value={"Other"} checked= {gender === "others"}
+                                            <input type="radio" id="other" name="gender" value={"Other"} checked= {gender === "others"} readOnly= {true}
                                                 className="w-[1rem]" />
                                             <label htmlFor="other" className="ml-[5px]">Other</label>
                                         </div>
@@ -151,7 +151,7 @@ export default function EditProfileSection() {
                                     </Link>
                                 </div>
                             </div>
-                        </form>  
+                        </div>  
 
                         {
                             error != "" && 

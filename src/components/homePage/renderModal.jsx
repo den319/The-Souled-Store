@@ -6,7 +6,11 @@ import { ModalContext } from "../../context/modalContext";
 
 
 
-export default function RenderModal({list}) {
+export default function RenderModal(props) {
+
+    const list= props.list;
+    const handleState= props.handleState;
+    
     const {isMobile}= useContext(ModalContext);
 
     let i=0;
@@ -20,7 +24,8 @@ export default function RenderModal({list}) {
                         const {tag, routeName, isNewCollection}= item;
                         return (
                             <li key={i++} className="py-[3px] px-[10px] font-grey rounded-[5px]
-                                hover:text-[#e11b23] hover:bg-[#f2f2f2]">
+                                hover:text-[#e11b23] hover:bg-[#f2f2f2]"
+                                onClick={() => handleState(false)}>
                                 <Link to={routeName}>
                                     <div className="flex">
                                         <p>{tag}</p>

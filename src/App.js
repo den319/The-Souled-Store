@@ -1,6 +1,6 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./styles/App.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navbar from "./components/homePage/navbar";
 import PageForMen from "./pages/homePage/pageForMen";
 import PageForWomen from "./pages/homePage/pageForWomen";
@@ -31,7 +31,7 @@ import JoggersForMen from "./components/clothCategoryForMen/joggersForMen";
 import JeansForMen from "./components/clothCategoryForMen/jeansForMen";
 import Product from "./pages/productPage/product";
 import { filterCartData, filterwishlistData } from "./utils/filterFunctions";
-import { fetchAuthorizedData } from "./utils/utilities";
+import { fetchAuthorizedData, fetchOrderList } from "./utils/utilities";
 import Wishlist from "./pages/user/wishlist";
 import ArtSection from "./components/profilePage/artSection";
 import AddressSection from "./components/profilePage/addressSection";
@@ -45,19 +45,21 @@ import JoggersForWomen from "./components/clothCategoryForWomen/joggersForWomen"
 import PantsForWomen from "./components/clothCategoryForWomen/pantsForWomen";
 import Apparel from "./components/homePage/apparel";
 import { TagContext } from "./context/tagContext";
-import { ImageContext } from "./context/imageContext";
-import OfficialMerchandise from "./components/homePage/officialMerchandise";
+import SearchSection from "./components/profilePage/searchSection";
 
 function App() {
 
-  const {setIsMobile, isMobile, cartUrl, whishlistUrl}= useContext(ModalContext);
+  const {setIsMobile, isMobile, cartUrl, whishlistUrl, orderListUrl}= useContext(ModalContext);
   const {save_user_and_token, isAuthenticated, setIsAuthenticated, projectId, user,
-        setItemsInCart, setWhishlistItems, whishlistItems, itemsInCart, setTotalPrice, activeTab}= useContext(UserContext);
+        setItemsInCart, setWhishlistItems, whishlistItems, itemsInCart, 
+        setTotalPrice, activeTab, orderList, setOrderList}= useContext(UserContext);
   const {apparelForWomen, apparelForMen}= useContext(TagContext);
-  const {merchandise}= useContext(ImageContext);
 
 
   const navigate= useNavigate();
+  const path= useLocation();
+
+  const [pathArr, setPathArr]= useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -122,16 +124,38 @@ function App() {
     }
   }, []);
 
+  // to get order list
+  useEffect(() => {
+    const authToken= localStorage.getItem("authToken");
+
+    if(authToken) {
+      try {
+        fetchOrderList(orderListUrl.getList, authToken, projectId, setOrderList);
+      } catch(error) {
+          console.log("error while fetching order list: ", error);
+      }
+    }
+  }, []);
+  
+  // console.log("hi");
+  // console.log(orderList);
+
+  useEffect(() => {
+    const arr= path.pathname.split("/");
+
+    setPathArr(arr);
+  }, [path])
+
+
   return <div className="App">  
-    <Navbar /> 
-     
+    <Navbar />   
 
     {
-      activeTab === "men" ?
-        <Apparel list={apparelForMen} />
-        :
-        <Apparel list={apparelForWomen} />
+      (pathArr[1] !== "orders" && pathArr[1] !== "my-gift-voucher" && pathArr[1] !== "points" && pathArr[1] !== "money" && 
+        pathArr[1] !== "my-saved-cards" && pathArr[1] !== "myprofile" && pathArr[1] !== "address" && pathArr[1] !== "search"  )
+        && <Apparel list={activeTab === "men" ? apparelForMen : apparelForWomen} />
     }
+    
 
     <Routes>
       <Route path="/" element={<PageForMen />} />
@@ -141,6 +165,7 @@ function App() {
       <Route path="/wishlist" element= {<Wishlist />} />
       <Route path="/cart" element= {<Cart />} />
       <Route path="/membership" element= {<MembershipPage />} />
+
       <Route path="/men-shirts" element= {<ShirtsForMen />} />
       <Route path="/men-tshirts" element= {<TshirtsForMen />} />
       <Route path="/men-hoodies" element= {<HoodiesForMen />} />
@@ -155,13 +180,9 @@ function App() {
       <Route path="/women-jumpsuits" element={<JumpsuitForWomen />} />
       <Route path="/women-joggers" element={<JoggersForWomen />} />
       <Route path="/women-pants" element={<PantsForWomen />} />
-
-
-      <Route path="/product/:productId" element= {<Product />} />
       
+      <Route path="/product/:productId" element= {<Product />} />
       <Route path="/submit-art-work" element= {<ArtSection />} />
-
-
       <Route path="/profile" element= {isMobile ? <ProfilePageForMobile/> : <ProfilePageForDeskTop />}>
         <Route path="orders" element= {<OrderSection />} />
         <Route path="my-gift-voucher" element= {<VoucherSection />} />
@@ -171,7 +192,6 @@ function App() {
         <Route path=":username" element= {<EditProfileSection />} />
         <Route path="address" element= {<AddressSection />} />
       </Route>
-
       <Route path="/orders" element= {<OrderSection />} />
       <Route path="/my-gift-voucher" element= {<VoucherSection />} />
       <Route path="/points" element= {<PointsSection />} />
@@ -179,19 +199,15 @@ function App() {
       <Route path="/my-saved-cards" element= {<SaveCardSection />} />
       <Route path="/myprofile/:username" element= {<EditProfileSection />} />
       <Route path="/address" element= {<AddressSection />} />
-
+      <Route path="/search" element= {<SearchSection />} />
       <Route path="/delivery-address/:true" element= {<DeliveryAddress />} />
       <Route path="/checkout/:true" element= {<Checkout />} />
-
       <Route path="/authentication" element= {<AuthenticationPage />} >
         <Route path="register" element= {<SignUp />} />
         <Route path="login" element= {<LogIn />} />
       </Route>
-
       <Route path="*" element= {<Error404 />} />
     </Routes>
-
-    <OfficialMerchandise list={merchandise} />
 
     <Footer />
   </div>;

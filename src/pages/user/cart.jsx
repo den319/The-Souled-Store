@@ -90,7 +90,7 @@ export default function Cart() {
                            <div className="mt-[1rem]">
                                 <Link to={"/wishlist"}>
                                     <div className="flex justify-between items-center cursor-pointer border-[2px] border-[#f2f2f2]
-                                        font-grey p-[1rem] text-[14px] font-bold
+                                        font-grey p-[1rem] text-[14px] font-bold duration-500
                                         group hover:bg-[#117a7a]">
                                         <div className="flex items-center">
                                             <div className="mt-[-3px] flex items-center">

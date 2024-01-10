@@ -35,23 +35,51 @@ export async function fetch_data(url, projectId) {
 
 export async function fetchAuthorizedData(url, authToken, projectId, filterFunction, setData, setPrice) {
     var myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${authToken}`);
-        myHeaders.append("projectID", projectId);
+    myHeaders.append("Authorization", `Bearer ${authToken}`);
+    myHeaders.append("projectID", projectId);
 
-        var requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
-        };
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
 
-        const response= await fetch(url, requestOptions);
-        const data= await response.json();
+    const response= await fetch(url, requestOptions);
+    const data= await response.json();
 
 
-        const modifiedData= filterFunction(data.data);
+    const modifiedData= filterFunction(data.data);
 
-        setData(modifiedData);   
-        setPrice && setPrice(data?.data?.totalPrice)
+    setData(modifiedData);   
+    setPrice && setPrice(data?.data?.totalPrice)
+}
+
+export async function fetchOrderList(url, authToken, projectId, setOrderList) {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${authToken}`);
+    myHeaders.append("projectID", projectId);
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    const response= await fetch(url, requestOptions);
+    const data= await response.json();
+
+    const mappedData= data?.data.map(item => {
+        return {
+            orderDate: item?.createdAt,
+            product: item?.order?.items[0]?.product,
+            shipmentDetails: item?.order?.shipmentDetails?.address,
+            totalPrice: item?.order?.totalPrice,
+        }
+    })
+
+    // console.log(mappedData);
+
+    setOrderList(mappedData);
 }
 
 export function findProduct(list, productId) {
@@ -133,8 +161,8 @@ export async function manageWhishlist(whishlistItems, setWhishlistItems, product
 export async function addInCart(itemsInCart, setItemsInCart, product, setTotalPrice, token, projectId, quantity, size) {
 
     const baseUrl= "https://academics.newtonschool.co/api/v1/ecommerce/cart/"
-    console.log("quantity: ", quantity);
-    console.log("size: ", size);
+    // console.log("quantity: ", quantity);
+    // console.log("size: ", size);
 
 
     try{
@@ -170,7 +198,7 @@ export async function addInCart(itemsInCart, setItemsInCart, product, setTotalPr
 
             setTotalPrice(data?.data?.totalPrice);
 
-            console.log("added: ", newList);
+            // console.log("added: ", newList);
 
         } else {
             console.log("error for add operation: ", error);
@@ -186,7 +214,7 @@ export async function addInCart(itemsInCart, setItemsInCart, product, setTotalPr
 
 export async function removeFromCart(itemsInCart, setItemsInCart, product, setTotalPrice, token, projectId) {
 
-    const baseUrl= "https://academics.newtonschool.co/api/v1/ecommerce/cart/"
+    const baseUrl= "https://academics.newtonschool.co/api/v1/ecommerce/cart/";
 
     try{
         var myHeaders = new Headers();
@@ -210,7 +238,7 @@ export async function removeFromCart(itemsInCart, setItemsInCart, product, setTo
             setItemsInCart(newList);
             setTotalPrice(data?.data?.totalPrice);
 
-            console.log("removed: ", newList);
+            // console.log("removed: ", newList);
         } else {
             console.log("error for remove operation: ", response);
         }
@@ -220,6 +248,41 @@ export async function removeFromCart(itemsInCart, setItemsInCart, product, setTo
     
 }
 
+// remove all from cart
+
+export async function removeAllFromCart(url, setItemsInCart, setTotalPrice, token, projectId) {
+
+    try{
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        myHeaders.append("projectID", `${projectId}`);
+
+        var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        const response= await fetch(url, requestOptions);
+        const data= await response.json();
+
+        const modifiedData= data.data;
+
+        if(response.ok) {
+            const newList= filterCartData(modifiedData);
+
+            setItemsInCart(newList);
+            setTotalPrice(data?.data?.totalPrice);
+
+            // console.log("removed: ", newList);
+        } else {
+            console.log("error for remove operation: ", response);
+        }
+    } catch(error) {
+        console.log("error in deleting item from database: ", error);
+    }
+    
+}
 
 // update user data
 
@@ -257,13 +320,58 @@ export async function updateUserInfo(url, userInfo, user, saveUser, token, proje
             const {data: userData}= data;
 
             const userDataString = JSON.stringify(userData.user);
+            localStorage.removeItem("userInfo");
             localStorage.setItem("userInfo", userDataString);
 
-            saveUser(userData);
+            saveUser(userData.user);
             onClose && onClose();
+        } else {
+            throw new Error('Error!');
         }
         
     } catch(error) {
         console.log("error: ", error);
     }
+}
+
+export async function placeOrder(url, product, user, token, projectId) {
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization",`Bearer ${token}`) 
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("projectID", `${projectId}`);
+
+        var raw = JSON.stringify({
+            "productId": `${product.productId}`,
+            "quantity": `${product.quantity}`,
+            "addressType": "HOME",
+            "address": {
+                "street": user.address[0]["street"],
+                "city": user.address[0]["city"],
+                "state": user.address[0]["state"],
+                "country": user.address[0]["country"],
+                "zipCode": user.address[0]["zipCode"],
+            },
+        });
+
+        // console.log(user.address[0]["street"]);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        const response= await fetch(url, requestOptions);
+
+        if(response.ok) {
+            const data= await response.json();
+        } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    } catch(error) {
+        console.log("error while making an order: ", error);
+    }
+    
 }

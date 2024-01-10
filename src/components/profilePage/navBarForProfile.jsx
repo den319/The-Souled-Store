@@ -5,6 +5,7 @@ import Empty_heart from "../../assets/svg/emptyHeart";
 import CartIcon from "../../assets/svg/cartIcon";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
+import Searchbar from "../homePage/searchBar";
 
 
 
@@ -32,6 +33,9 @@ export default function NavbarForProfile() {
             
 
             <div className="flex items-center text-[11px]">
+
+                <Searchbar />
+                
                 <Link to={"/wishlist"}>
                     <div className="relative px-[8px] lg:px-[1rem] py-[16px] border-b-[5px] border-white 
                         hover:border-b-[5px] hover:border-[#e11b23] hover:bg-[#fbfbfb]">

@@ -171,10 +171,11 @@ export default function Apparel({list}) {
                                         isRoute ?
                                             <Link to={route}>
                                                 <p className="py-[19px] w-full border-b-[5px] border-white hover:text-[#e11b23] 
-                                                    hover:border-b-[5px] hover:border-[#e11b23] sm:w-max">{category}</p>     
+                                                    hover:border-b-[5px] hover:border-[#e11b23] sm:w-max"
+                                                    onClick={() => setIsClickedOnMenu(false)}>{category}</p>     
                                             </Link>
                                         :
-                                            <RenderNavbarTag category={category} list={tagList}
+                                            <RenderNavbarTag category={category} list={tagList} handleState= {setIsClickedOnMenu}
                                                 effect={"w-full py-[19px] border-b-[5px] border-white hover:text-[#e11b23] hover:border-b-[5px] hover:border-[#e11b23] hover:bg-[#fbfbfb] sm:w-max"} /> 
                                     }
                                 </li>
@@ -185,32 +186,32 @@ export default function Apparel({list}) {
 
                 <div className="border-b py-[10px] text-[15px] font-semibold px-[1rem]">
                     <Link to={"/membership"}>
-                        <p className="text-[#ff7e33] cursor-pointer py-[10px] py-[10px]">Get Extra Discounts With Membership</p>
+                        <p className="text-[#ff7e33] cursor-pointer py-[10px]" onClick={() => setIsClickedOnMenu(false)}>Get Extra Discounts With Membership</p>
                     </Link>
 
                     {
                         isAuthenticated &&
                         <>
                             <Link to={"/profile"}>
-                                <p className="cursor-pointer py-[10px]">My Account</p>
+                                <p className="cursor-pointer py-[10px]" onClick={() => setIsClickedOnMenu(false)}>My Account</p>
                             </Link>
 
-                            <Link to={"/profile/orders"}>
-                                <p className="cursor-pointer py-[10px]">My Orders</p>
+                            <Link to={"/orders"}>
+                                <p className="cursor-pointer py-[10px]" onClick={() => setIsClickedOnMenu(false)}>My Orders</p>
                             </Link>
                         </>
                     }
 
-                    <Link to={"/contact-us"}>
-                        <p className="cursor-pointer py-[10px]">Contact Us</p>
+                    <Link to={"/contact-us"} >
+                        <p className="cursor-pointer py-[10px]" onClick={() => setIsClickedOnMenu(false)} >Contact Us</p>
                     </Link>
                     
                     <Link to={"/faqs"}>
-                        <p className="cursor-pointer py-[10px]">FAQs</p>
+                        <p className="cursor-pointer py-[10px]" onClick={() => setIsClickedOnMenu(false)}>FAQs</p>
                     </Link>
 
                     <Link to={"/community-initiatives"}>
-                        <p className="cursor-pointer py-[10px]">Community Initiatives</p>
+                        <p className="cursor-pointer py-[10px]" onClick={() => setIsClickedOnMenu(false)}>Community Initiatives</p>
                     </Link>
                 </div>
                 
@@ -239,7 +240,7 @@ export default function Apparel({list}) {
                                         return (
                                             <li key={title}>
                                                 <Link to={`/${route}`}>
-                                                    <p className="py-[5px]">{title}</p>
+                                                    <p className="py-[5px]" onClick={() => setIsClickedOnMenu(false)}>{title}</p>
                                                 </Link>
                                             </li>
                                         )

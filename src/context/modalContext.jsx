@@ -15,6 +15,7 @@ function ModalProvider({children}) {
     addItem: "https://academics.newtonschool.co/api/v1/ecommerce/cart/",
     getList: "https://academics.newtonschool.co/api/v1/ecommerce/cart",
     deleteItem: "https://academics.newtonschool.co/api/v1/ecommerce/cart/",
+    deleteAll: "https://academics.newtonschool.co/api/v1/ecommerce/cart",
   });
 
   const [whishlistUrl, setWishlistUrl]= useState({

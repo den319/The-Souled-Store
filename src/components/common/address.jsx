@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import AddAddressModal from "../modals/addAddressModal";
 import { ModalContext } from "../../context/modalContext";
@@ -14,6 +14,11 @@ export default function Address() {
 
     const [isModalOpen, setIsModalOpen]= useState(false);
     const [address, setAddress]= useState(user?.address?.[0]);
+
+    useEffect(() => {
+        setAddress(user?.address?.[0]);
+    }, [user?.address?.[0]])
+    // console.log("address: ", address);
 
     return (
         <>

@@ -1,11 +1,13 @@
 import { useContext, useState } from "react"
 import { UserContext } from "../../context/userContext"
 import OrederBill from "./orderSectionForCart/OrderBill";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AddAddressModal from "../modals/addAddressModal";
 import DropDown from "./dropDown";
 import CreditCard from "./orderSectionForCart/creditCard";
 import NetBanking from "./orderSectionForCart/netbanking";
+import { ModalContext } from "../../context/modalContext";
+import { placeOrder, removeAllFromCart } from "../../utils/utilities";
 
 
 
@@ -15,7 +17,11 @@ import NetBanking from "./orderSectionForCart/netbanking";
 export default function Checkout() {
 
     const isChecked= useParams();
-    const {user}= useContext(UserContext);
+    const {user, itemsInCart, token, setItemsInCart, setTotalPrice, projectId, setOrderList, 
+        orderList}= useContext(UserContext);
+    const {isMobile, orderListUrl, cartUrl}= useContext(ModalContext);
+
+    const navigate= useNavigate();
 
     const [isDropdownOpened, setIsDropdownOpened]= useState(false);
 
@@ -45,6 +51,19 @@ export default function Checkout() {
         })
     }
 
+    function handleOrder() {
+        itemsInCart.forEach(item => {
+            // console.log(item);
+            placeOrder(orderListUrl.addOrder, item, user, token, projectId);
+        })
+
+        removeAllFromCart(cartUrl.deleteAll, setItemsInCart, setTotalPrice, token, projectId);
+        // placeOrder(orderListUrl.addOrder, itemsInCart[0], user, setOrderList, token, projectId);
+        navigate(isMobile ? "/orders" : "/profile/orders");
+    }
+
+    // console.log(orderList);
+     
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="flex justify-center w-full font-bold text-[10px] 
@@ -263,13 +282,13 @@ export default function Checkout() {
                     <div className="w-full mt-[1rem] md:w-[23rem] md:ml-[2rem] md:mt-[1px]">
                         <OrederBill isChecked= {isChecked.true === "true"} />
 
-                        <Link to={"/"}>
-                            <button className="w-full mt-[1rem] py-[8px] font-green text-[13px] font-bold border border-[#117a7a] 
-                                duration-500
-                                hover:bg-[#117a7a] hover:text-white md:border md:rounded-[5px]">
-                                CONFIRM ORDER
-                            </button>
-                        </Link>
+                        
+                        <button className="w-full mt-[1rem] py-[8px] font-green text-[13px] font-bold border border-[#117a7a] 
+                            duration-500
+                            hover:bg-[#117a7a] hover:text-white md:border md:rounded-[5px]"
+                            onClick={() => handleOrder()}>
+                            CONFIRM ORDER
+                        </button>
                     </div>
                 </div>
                 

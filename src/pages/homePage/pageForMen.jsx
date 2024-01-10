@@ -34,7 +34,7 @@ export default function PageForMen() {
                 <Categories list={categories[0].men} />
 
                 <ProductList url={bestSellerUrl} heading={"TOP SELLING"} />
-                
+                <OfficialMerchandise list={merchandise} />
             </div>
 
            

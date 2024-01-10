@@ -6,7 +6,13 @@ import RenderModal from "./renderModal";
 
 
 
-export default function RenderNavbarTag({category, list, effect}) {
+export default function RenderNavbarTag(props) {
+
+    const category= props.category;
+    const list= props.list;
+    const effect= props.effect;
+
+    const handleState= props.handleState;
 
     const [isHovered, setIsHovered]= useState(false);
 
@@ -28,7 +34,7 @@ export default function RenderNavbarTag({category, list, effect}) {
             }
             
             {
-                isHovered && <RenderModal list={list} />
+                isHovered && <RenderModal list={list} handleState= {handleState} />
             }
         </div>
     )

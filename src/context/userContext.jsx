@@ -12,6 +12,7 @@ function UserProvider({children}) {
 
     const [itemsInCart, setItemsInCart]= useState([]);
     const [whishlistItems, setWhishlistItems]= useState([]);
+    const [orderList, setOrderList]= useState([]);
 
     const [totalPrice, setTotalPrice]= useState(0);
 
@@ -31,11 +32,13 @@ function UserProvider({children}) {
         set_user(user);
     }
     
+    // console.log("user data: ", user);
+
 
     return(
         <UserContext.Provider value={{isAuthenticated, setIsAuthenticated, itemsInCart, setItemsInCart,
             whishlistItems, setWhishlistItems, projectId, username, setUserName, 
-            save_user_and_token, saveUser, activeTab, setActiveTab,
+            save_user_and_token, saveUser, activeTab, setActiveTab, orderList, setOrderList,
             user, set_user, token, set_token, totalPrice, setTotalPrice}}>
             {children}
         </UserContext.Provider>

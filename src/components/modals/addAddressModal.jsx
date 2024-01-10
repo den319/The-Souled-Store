@@ -4,6 +4,7 @@ import Portal from "../portal/portal";
 import { ModalContext } from "../../context/modalContext";
 import { UserContext } from "../../context/userContext";
 import { updateUserInfo } from "../../utils/utilities";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -12,19 +13,12 @@ import { updateUserInfo } from "../../utils/utilities";
 
 export default function AddAddressModal({ isOpen, onClose, heading }) {
 
-    const {token, projectId, user, saveUser}= useContext(UserContext);
+    const {token, projectId, user, saveUser, set_user}= useContext(UserContext);
     const {userData}= useContext(ModalContext);
 
-    const [userInfo, setUserInfo]= useState({
-        firstName: "",
-        lastName: "",
-        street: "",
-        city: "",
-        state: "",
-        country: "",
-        zipCode: "",
-        phone: "",
-    });
+    const navigate= useNavigate();
+    
+    // console.log(user);
 
     const nameArr= user?.name?.split(" ");
     const [name, setName]= useState(nameArr?.[0]);
@@ -32,7 +26,21 @@ export default function AddAddressModal({ isOpen, onClose, heading }) {
 
     const [error, setError]= useState("");
 
+    // console.log(user);
+
     if (!isOpen) return null;
+    const [userInfo, setUserInfo]= useState({
+        firstName: name ? name : "",
+        lastName: surname ? surname : "",
+        street: user ? user?.address?.[0]["street"] : "",
+        city: user ? user?.address?.[0]["city"] : "",
+        state: user ? user?.address?.[0]["state"] : "",
+        country: user ? user?.address?.[0]["country"] : "",
+        zipCode: user ? user?.address?.[0]["zipCode"] : "",
+        phone: user ? user?.phone : "",
+    });
+
+    
 
     function handleChange(event) {
         const name= event.target.name;
@@ -64,8 +72,11 @@ export default function AddAddressModal({ isOpen, onClose, heading }) {
             return;
         } 
 
-        updateUserInfo(userData.updateData ,userInfo, user, saveUser, token, projectId, onClose);
+        // console.log("clicked")
+        updateUserInfo(userData.updateData ,userInfo, user, set_user, token, projectId, onClose);
     } 
+
+    // console.log(user);
 
     return (
         <Portal effect={"backdrop-grayscale backdrop-blur-[4px] backdrop-brightness-50 animate-vertical-slide"}>
