@@ -70,7 +70,7 @@ export async function fetchOrderList(url, authToken, projectId, setOrderList) {
 
     const mappedData= data?.data.map(item => {
         return {
-            orderDate: item?.createdAt,
+            orderDate: item?.createdAt.slice(0,10),
             product: item?.order?.items[0]?.product,
             shipmentDetails: item?.order?.shipmentDetails?.address,
             totalPrice: item?.order?.totalPrice,

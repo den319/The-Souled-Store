@@ -25,7 +25,7 @@ export default function ProfilePageForDeskTop() {
     }
 
     return (
-        <div className="w-full py-[2rem] px-[15rem]">
+        <div className="w-full py-[2rem] px-[5rem] xl:px-[10rem] 2xl:px-[15rem]">
             <div className="w-full flex justify-center mr-[3rem]">
                 <div className="min-w-[260px] font-grey text-[15px] 2xl:min-w-[290px]">
                     <div className="bg-[#f1f1f1]">

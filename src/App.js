@@ -14,7 +14,7 @@ import Cart from "./pages/user/cart";
 import Error404 from "./pages/errorPage/error404";
 import ProfilePageForDeskTop from "./pages/profilePage/profilePageForDesktop";
 import ProfilePageForMobile from "./pages/profilePage/profilePageForMobile";
-import OrderSection from "./components/profilePage/ordersSection";
+import OrderSection from "./components/profilePage/orderSection/ordersSection";
 import VoucherSection from "./components/profilePage/voucherSection";
 import PointsSection from "./components/profilePage/pointsSection";
 import MoneySection from "./components/profilePage/moneySection";

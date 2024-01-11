@@ -257,7 +257,7 @@ export default function Apparel({list}) {
     function renderProfileModal(list) {
         return (
             <ul className="absolute top-[65px] right-0 font-semibold text-[15px] w-max min-w-[10rem]
-                shadow-[0px_0px_20px_0px_rgba(0,0,0,0.2) z-10 font-grey]">
+                shadow-[0px_0px_20px_0px_rgba(0,0,0,0.2)] z-10 font-grey">
                 <div className="p-[1rem] bg-white">
                     {
                         list.map((item) => {
