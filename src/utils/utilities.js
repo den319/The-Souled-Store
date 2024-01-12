@@ -34,6 +34,7 @@ export async function fetch_data(url, projectId) {
 }
 
 export async function fetchAuthorizedData(url, authToken, projectId, filterFunction, setData, setPrice) {
+
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${authToken}`);
     myHeaders.append("projectID", projectId);
@@ -55,31 +56,42 @@ export async function fetchAuthorizedData(url, authToken, projectId, filterFunct
 }
 
 export async function fetchOrderList(url, authToken, projectId, setOrderList) {
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${authToken}`);
-    myHeaders.append("projectID", projectId);
 
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-    };
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${authToken}`);
+        myHeaders.append("projectID", projectId);
 
-    const response= await fetch(url, requestOptions);
-    const data= await response.json();
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
 
-    const mappedData= data?.data.map(item => {
-        return {
-            orderDate: item?.createdAt.slice(0,10),
-            product: item?.order?.items[0]?.product,
-            shipmentDetails: item?.order?.shipmentDetails?.address,
-            totalPrice: item?.order?.totalPrice,
+        const response= await fetch(url, requestOptions);
+
+        if(response.ok) {
+            const data= await response.json();
+
+            const mappedData= data?.data.map(item => {
+                return {
+                    orderDate: item?.createdAt.slice(0,10),
+                    product: item?.order?.items[0]?.product,
+                    shipmentDetails: item?.order?.shipmentDetails?.address,
+                    totalPrice: item?.order?.totalPrice,
+                }
+            })
+            // console.log(mappedData);
+            setOrderList(mappedData);
+        } else {
+            throw new Error("response is not ok");
         }
-    })
+    }catch(error) {
+        console.log("error: ", error);
+    }
 
-    // console.log(mappedData);
-
-    setOrderList(mappedData);
+    
+    
 }
 
 export function findProduct(list, productId) {
@@ -365,9 +377,7 @@ export async function placeOrder(url, product, user, token, projectId) {
 
         const response= await fetch(url, requestOptions);
 
-        if(response.ok) {
-            const data= await response.json();
-        } else {
+        if(!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
     } catch(error) {

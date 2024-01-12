@@ -7,7 +7,7 @@ import DropDown from "./dropDown";
 import CreditCard from "./orderSectionForCart/creditCard";
 import NetBanking from "./orderSectionForCart/netbanking";
 import { ModalContext } from "../../context/modalContext";
-import { placeOrder, removeAllFromCart } from "../../utils/utilities";
+import { fetchOrderList, placeOrder, removeAllFromCart } from "../../utils/utilities";
 
 
 
@@ -52,14 +52,19 @@ export default function Checkout() {
     }
 
     function handleOrder() {
-        itemsInCart.forEach(item => {
-            // console.log(item);
-            placeOrder(orderListUrl.addOrder, item, user, token, projectId);
-        })
+        try {
+            itemsInCart.forEach(item => {
+                // console.log(item);
+                placeOrder(orderListUrl.addOrder, item, user, token, projectId);
+            })
 
-        removeAllFromCart(cartUrl.deleteAll, setItemsInCart, setTotalPrice, token, projectId);
-        // placeOrder(orderListUrl.addOrder, itemsInCart[0], user, setOrderList, token, projectId);
-        navigate(isMobile ? "/orders" : "/profile/orders");
+            removeAllFromCart(cartUrl.deleteAll, setItemsInCart, setTotalPrice, token, projectId);
+
+            navigate(isMobile ? "/orders" : "/profile/orders");
+        } catch(error) {
+            throw new Error("Error while placing order: ", error) 
+        }
+        
     }
 
     // console.log(orderList);

@@ -124,21 +124,6 @@ function App() {
     }
   }, []);
 
-  // to get order list
-  useEffect(() => {
-    const authToken= localStorage.getItem("authToken");
-
-    if(authToken) {
-      try {
-        fetchOrderList(orderListUrl.getList, authToken, projectId, setOrderList);
-      } catch(error) {
-          console.log("error while fetching order list: ", error);
-      }
-    }
-  }, []);
-  
-  // console.log("hi");
-  // console.log(orderList);
 
   useEffect(() => {
     const arr= path.pathname.split("/");

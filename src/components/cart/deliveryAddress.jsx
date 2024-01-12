@@ -1,6 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import Address from "../common/address";
 import OrederBill from "./orderSectionForCart/OrderBill";
+import { useContext, useState } from "react";
+import AddAddressModal from "../modals/addAddressModal";
+import { UserContext } from "../../context/userContext";
 
 
 
@@ -8,8 +11,12 @@ import OrederBill from "./orderSectionForCart/OrderBill";
 
 export default function DeliveryAddress() {
 
-    const isChecked= useParams();
+    const {user}= useContext(UserContext);
 
+    const isChecked= useParams();
+    const [isModalOpen, setIsModalOpen]= useState(false);
+
+    // console.log(user)
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="flex justify-center w-full font-bold text-[10px] 
@@ -42,16 +49,36 @@ export default function DeliveryAddress() {
                         <Address />
                     </div>
 
+                    {
+                        isModalOpen &&
+                        
+                        <AddAddressModal isOpen={isModalOpen} 
+                            onClose={() => setIsModalOpen(false)}
+                            heading={"Add New Address"} />
+                    }
+
                     <div className="w-full mt-[1rem] md:w-[23rem] md:ml-[2rem] md:mt-[1px]">
                         <OrederBill isChecked= {isChecked.true === "true"} />
 
-                        <Link to={"/checkout/" + `${isChecked.true === "true"}`}>
-                            <button className="w-full mt-[1rem] py-[8px] font-green text-[13px] font-bold border border-[#117a7a] 
+                        {
+                            user?.address.length !== 0 ? 
+                            <Link to={"/checkout/" + `${isChecked.true === "true"}`}>
+                                <button className="w-full mt-[1rem] py-[8px] font-green text-[13px] font-bold border border-[#117a7a] 
+                                    duration-500
+                                    hover:bg-[#117a7a] hover:text-white md:border md:rounded-[5px]">
+                                    CONTINUE TO PAYMENT
+                                </button>
+                            </Link>
+                            :
+                            <button onClick={() => setIsModalOpen(true)} 
+                                className="w-full mt-[1rem] py-[8px] font-green text-[13px] font-bold border border-[#117a7a] 
                                 duration-500
                                 hover:bg-[#117a7a] hover:text-white md:border md:rounded-[5px]">
                                 CONTINUE TO PAYMENT
                             </button>
-                        </Link>
+                        }
+
+                        
                     </div>
                 </div>
             </div>

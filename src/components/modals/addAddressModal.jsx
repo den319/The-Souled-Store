@@ -32,12 +32,12 @@ export default function AddAddressModal({ isOpen, onClose, heading }) {
     const [userInfo, setUserInfo]= useState({
         firstName: name ? name : "",
         lastName: surname ? surname : "",
-        street: user ? user?.address?.[0]["street"] : "",
-        city: user ? user?.address?.[0]["city"] : "",
-        state: user ? user?.address?.[0]["state"] : "",
-        country: user ? user?.address?.[0]["country"] : "",
-        zipCode: user ? user?.address?.[0]["zipCode"] : "",
-        phone: user ? user?.phone : "",
+        street: user?.address?.[0]  ? user?.address?.[0]["street"] : "",
+        city: user?.address?.[0]? user?.address?.[0]["city"] : "",
+        state: user?.address?.[0]  ? user?.address?.[0]["state"] : "",
+        country: user?.address?.[0] ? user?.address?.[0]["country"] : "",
+        zipCode: user?.address?.[0] ? user?.address?.[0]["zipCode"] : "",
+        phone: user?.phone ? user?.phone : "",
     });
 
     

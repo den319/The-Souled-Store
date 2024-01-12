@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../../context/modalContext";
 import NavbarForProfile from "../navBarForProfile";
 import { UserContext } from "../../../context/userContext";
-import { NavLink } from "react-router-dom";
 import DeliverySection from "./deliverySection";
+import { fetchOrderList } from "../../../utils/utilities";
 
 
 
@@ -11,19 +11,33 @@ import DeliverySection from "./deliverySection";
 
 
 export default function OrderSection() {
-    const {isMobile}= useContext(ModalContext);
-    const {orderList, user}= useContext(UserContext);
+    const {isMobile, orderListUrl}= useContext(ModalContext);
+    const {orderList, setOrderList, token, user, projectId, itemsInCart}= useContext(UserContext);
 
-    // console.log("order list: ", orderList);
+    const [modifiedOrderList, setModifiedOrderList]= useState({});
 
-    const [modifiedOrderList, setModifiedOrderList]= useState(Object.groupBy(orderList, ({orderDate}) => orderDate));
+
+    console.log(modifiedOrderList);
+
+    // to get order list
+    useEffect(() => {
+        try {
+            fetchOrderList(orderListUrl.getList, token, projectId, setOrderList);
+        } catch(error) {
+            console.log("error while fetching order list: ", error);
+        }
+    }, [itemsInCart]);
+
+
+    useEffect(() => {
+        setModifiedOrderList(() => Object.groupBy(orderList, ({orderDate}) => orderDate));
+    }, [orderList.length])
+
+    // console.log("order list: ", orderList.length);
+
 
     const [currDate, setCurrDate]= useState(new Date().getDate());
     const [currMonth, setCurrMonth]= useState(new Date().getMonth() + 1);
-
-    const monthArr= ["jan", "feb", "march", "april", "may", "june", "july", "august", "sept", "oct", "nov", "dec"];
-
-    // console.log(modifiedOrderList);
 
 
 
