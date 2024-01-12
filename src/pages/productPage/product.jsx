@@ -158,6 +158,12 @@ export default function Product() {
                         </div>
 
                         <div className="py-[10px] md:py-[1rem]">
+
+                        <div className="flex items-center py-[10px]">
+                                <p className="font-bold">Brand: </p>
+                            
+                                <p className={`pl-[7px] font-semibold`}>{product?.brand}</p> 
+                            </div>
                             <p className="text-[21px] font-bold font-grey
                                 lg:text-[26px] xl:text-[29px]">₹ {product?.price}</p>
 
@@ -192,6 +198,8 @@ export default function Product() {
                             
                                 <p className={`pl-[7px] font-semibold`}>{product?.color}</p> 
                             </div>
+
+                            
 
                             <div className="flex items-center py-[10px]">
                                 <p className="font-bold">Ratings: </p>

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ModalContext } from "../../../context/modalContext";
+import { Link } from "react-router-dom";
 
 
 
@@ -6,9 +8,7 @@ import { useEffect, useState } from "react";
 
 
 export default function DeliverySection({date, list, totalDays}) {
-    // totalDays= 9
-
-    // console.log(list);
+    const {isMobile}= useContext(ModalContext);
     const [totalCost, setTotalCost]= useState(0);
     
     
@@ -21,14 +21,14 @@ export default function DeliverySection({date, list, totalDays}) {
     }, [list])
 
     return (
-        <div className="mt-[1rem] border">
+        <div className="mt-[1rem] border text-[12px] md:text-[15px]">
             {/* heading */}
             <div className="font-bold p-[1rem] text-[16px] font-grey bg-[#eee]">
                 Delivery Details
             </div>
 
             {/* order detaile section */}
-            <div className="p-[1.5rem] font-grey">
+            <div className="p-[10px] font-grey sm:p-[1.5rem]">
                 {/* tracking section */}
                 <div>
                     <div>
@@ -43,10 +43,14 @@ export default function DeliverySection({date, list, totalDays}) {
                                 totalDays >= 5 && totalDays <= 7 ? "Order is shipping" : "Order has been delevered"}</p>
                         </div>
 
-                        <div className="flex mt-[10px]">
+                        <div className="w-full flex mt-[10px] text-[13px] md:text-[16px]">
                             <p className="font-bold">Total Price:</p>
-                            <p className="ml-[5px] font-bold">₹ {totalCost}</p>
-                            <p className="ml-[5px] font-bold">+ ₹ {(parseInt(totalCost * 0.1))} (GST)  =  ₹ {totalCost + (parseInt(totalCost * 0.1))}</p>
+                            <div className="flex flex-wrap items-center">
+                                <p className="w-max ml-[5px] font-bold">₹ {totalCost}</p>
+                                <p className="w-max ml-[5px] font-bold">+ ₹ {(parseInt(totalCost * 0.1))} (GST) = </p>
+                                <p className="w-max ml-[5px] font-bold"> ₹ {totalCost + (parseInt(totalCost * 0.1))}</p>
+                            </div>
+                            
                         </div>
                     </div>
 
@@ -75,18 +79,26 @@ export default function DeliverySection({date, list, totalDays}) {
                             // console.log(price)
 
                             return (
-                                <div className="border my-[2rem]">
+                                <div key={idx} className="border my-[1rem] sm:my-[2rem]">
                                     <div className="flex py-[1rem] mx-[1rem]">
                                         {/* image */}
 
-                                        <div className="min-w-[10rem] h-[13rem]">
-                                            <img src={displayImage} alt="No Image" className="w-full h-full" />
+                                        <div className="min-w-[6rem] h-[8rem] cursor-pointer
+                                            md:min-w-[10rem] md:min-h-[13rem] ">
+                                            <Link to={`/product/${_id}`}>
+                                                <img src={displayImage} alt="No Image" className="w-full h-full" />
+                                            </Link>
                                         </div>
 
                                         {/* product details */}
                                         <div className="pl-[1rem] flex flex-col justify-start items-start w-full">
-                                            <p className="font-bold text-[17px]">{name}</p>
-                                            <p className="font-bold text-[16px] mt-[5px]">₹ {price}</p>
+                                            <Link to={`/product/${_id}`}>
+                                                <p className="font-bold text-[13px] sm:text-[17px] cursor-pointer hover:text-[#e11b23]">
+                                                    {isMobile ? name.slice(0, 15) + "..." : name }
+                                                </p>
+                                            </Link>
+                                            
+                                            <p className="font-bold text-[12px] mt-[5px] sm:text-[16px]">₹ {price}</p>
                                             <div className="flex items-center font-semibold mt-[5px]">
                                                 <p className={` ${ratings >= 3.5 ? 
                                                     "font-green" : ratings > 2 ? "text-[#fc8a08]" : "font-red"}`}>
@@ -95,7 +107,7 @@ export default function DeliverySection({date, list, totalDays}) {
 
                                                 <p>/5.0</p> 
                                             </div> 
-                                            <div className="flex items-center text-[15px] mt-[5px]">
+                                            <div className="flex items-center text-[12px] mt-[5px] sm:text-[15px]">
                                                 <p className="font-bold">Quantity:</p>
                                                 <p className="font-semibold ml-[5px]">{totalPrice / price}</p>
                                             </div>
@@ -104,9 +116,9 @@ export default function DeliverySection({date, list, totalDays}) {
                                     
                                     {/* address */}
 
-                                    <div className="flex items-center py-[10px] border-t pl-[1rem]">
-                                            <p className="font-bold text-[16px]">Address:</p>
-                                            <div className="ml-[5px] font-semibold flex items-center">
+                                    <div className="flex items-start py-[10px] border-t pl-[1rem]">
+                                            <p className="font-bold text-[13px] mt-[-2px] sm:mt-0 sm:text-[16px]">Address:</p>
+                                            <div className="ml-[5px] font-semibold flex flex-wrap items-start">
                                                 <p>{list[0].shipmentDetails.street},</p>
                                                 <p className="ml-[5px]">{list[0].shipmentDetails.city},</p>
                                                 <p className="ml-[5px]">{list[0].shipmentDetails.state},</p>
