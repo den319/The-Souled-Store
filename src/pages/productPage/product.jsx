@@ -142,10 +142,10 @@ export default function Product() {
                             </div>
                         )
                 }
-                
 
+            
                 {/* product details */}
-
+                
 
                 {
                     (product !== undefined && Array.isArray(product) === false && product?.images?.length !== 0) ?
@@ -303,24 +303,29 @@ export default function Product() {
                         </div>
                     </div>
                     :
-                    <div className="max-w-[20rem] mt-[1rem] px-[10px] ml-[10px] animate-pulse
-                        lg:max-w-[28rem] xl:max-w-[30rem] 2xl:max-w-[35rem] md:mt-0">
+                    <div className="w-full max-w-[20rem] mt-[1rem] px-[10px] ml-[10px] animate-pulse
+                        md:min-w-[21rem] min-[900px]:max-w-[30rem] lg:min-w-[28rem] xl:min-w-[30rem] 2xl:min-w-[35rem] md:mt-0">
                         <div className="mb-[10px] border-b md:mb-[15px]">
-                            <p className="w-[10rem] h-[1rem] bg-gray-200 bg-gray-300"></p>
-                            <p className="w-[5rem] h-[1rem] bg-gray-200 bg-gray-300"></p>
+                            <p className="w-[10rem] h-[1rem] bg-gray-200 bg-gray-300
+                                lg:w-[20rem]"></p>
+                            <p className="w-[5rem] h-[1rem] my-[10px] bg-gray-200 bg-gray-300
+                                lg:w-[10rem]"></p>
                         </div>
 
                         <div className="my-[10px] md:my-[1rem]">
-                            <p className="w-[5rem] h-[1.5rem] bg-gray-200 bg-gray-300"></p>
+                            <p className="w-[5rem] h-[1.5rem] bg-gray-200 bg-gray-300
+                                md:w-[10rem]"></p>
 
-                            <p className="my-[10px] bg-gray-200 bg-gray-300"></p>
+                            <p className="w-[5rem] h-[1rem] my-[10px] bg-gray-200 bg-gray-300 "></p>
 
                             <div className="flex flex-wrap items-center my-[10px]">
                                 {
                                     new Array(4).fill("").map((_, index) => {
                                         return (
                                             <button key={index} 
-                                                className={`flex items-center justify-center w-[3.5rem] h-[3.5rem] p-[1rem] border rounded-full mr-[1rem]
+                                                className={`flex items-center justify-center 
+                                                    w-[3.5rem] h-[3.5rem] p-[1rem] border rounded-full 
+                                                    mr-[1rem] my-[5px]
                                                     bg-gray-200 bg-gray-300`}></button>
                                         )
                                     })
@@ -328,15 +333,18 @@ export default function Product() {
                             </div>
 
                             <div className="flex items-center py-[10px]">
-                                <p className="w-[5rem] h-[1rem] bg-gray-200 bg-gray-300"></p>
+                                <p className="w-[5rem] h-[1rem] bg-gray-200 bg-gray-300
+                                    md:w-[10rem] xl:w-[15rem]"></p>
                             </div>
 
                             <div className="flex items-center py-[10px]">
-                                <p className="w-[5rem] h-[1rem] bg-gray-200 bg-gray-300"></p>
+                                <p className="w-[5rem] h-[1rem] bg-gray-200 bg-gray-300
+                                    md:w-[10rem] xl:w-[15rem]"></p>
                             </div>
                             
                             <div className="flex items-center py-[10px]">
-                                <p className="w-[5rem] h-[1rem] bg-gray-200 bg-gray-300"></p>
+                                <p className="w-[5rem] h-[1rem] bg-gray-200 bg-gray-300
+                                    md:w-[10rem] xl:w-[15rem]"></p>
                             </div>
                         </div>
 
@@ -360,20 +368,19 @@ export default function Product() {
                                 xl:w-[5rem] xl:h-[5rem]"> 
                             </div>
 
-                            <div className="w-full">
+                            <div className="w-full ml-[10px]">
                                 <p className="w-full h-[1rem] pl-[10px] bg-gray-200 bg-gray-300 xl:pl-[2rem]"></p>
-                                <p className="w-full h-[1rem] pl-[10px] bg-gray-200 bg-gray-300 xl:pl-[2rem]"></p>
-
+                                <p className="w-full h-[1rem] mt-[10px] pl-[10px] bg-gray-200 bg-gray-300 xl:pl-[2rem]"></p>
                             </div>
                         
                         </div>
                         
 
-                        <div className="p-[1rem]">
-                            <p className="w-[5rem] h-[1rem] bg-gray-200 bg-gray-300"></p>
+                        <div className="w-full md:py-[1rem]">
+                            <p className="w-full h-[1rem] bg-gray-200 bg-gray-300 md:w-[20rem]"></p>
                         </div>
                     </div>
-                }    
+                }
             </div>
             
             {/* similar products */}
