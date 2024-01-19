@@ -56,9 +56,20 @@ function App() {
   const navigate= useNavigate();
   const path= useLocation();
 
+
   const [pathArr, setPathArr]= useState([]);
 
   const [windowSize, setWindowSize]= useState(null);
+
+  useEffect(() => {
+    const arr= path.pathname.split("/");
+
+    setPathArr(arr);
+  }, [path])
+  
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, [path.pathname])
 
   useEffect(() => {
     setWindowSize(window.innerWidth);
@@ -125,14 +136,6 @@ function App() {
     }
   }, []);
 
-
-  useEffect(() => {
-    const arr= path.pathname.split("/");
-
-    setPathArr(arr);
-  }, [path])
-
-
   return <div className="App">  
     <Navbar />   
 
@@ -192,6 +195,7 @@ function App() {
         <Route path="register" element= {<SignUp />} />
         <Route path="login" element= {<LogIn />} />
       </Route>
+      <Route path="/error" element= {<Error404 />} />
       <Route path="*" element= {<Error404 />} />
     </Routes>
 

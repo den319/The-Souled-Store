@@ -19,7 +19,7 @@ export default function Error404() {
             </div>
 
             <button className="cursor-pointer border border-[#117a7a] rounded-[5px] 
-                bc-green font-green font-bold duration-500
+                bc-green text-white font-bold duration-500 px-[1rem] py-[5px]
                 hover:bg-white hover:text-[#117a7a]">  
                 <Link to={"/"}>
                     Go Back Home

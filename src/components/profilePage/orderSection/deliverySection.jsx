@@ -37,12 +37,6 @@ export default function DeliverySection({date, list, totalDays}) {
                             <p className="ml-[5px]">{date}</p>
                         </div>
 
-                        <div className="flex mt-[10px]">
-                            <p className="font-bold">Order Status:</p>
-                            <p className="ml-[5px]">{totalDays < 5 ? "Order is in Queue" : 
-                                totalDays >= 5 && totalDays <= 7 ? "Order is shipping" : "Order has been delevered"}</p>
-                        </div>
-
                         <div className="w-full flex mt-[10px] text-[13px] md:text-[16px]">
                             <p className="font-bold">Total Price:</p>
                             <div className="flex flex-wrap items-center">
@@ -50,11 +44,16 @@ export default function DeliverySection({date, list, totalDays}) {
                                 <p className="w-max ml-[5px] font-bold">+ ₹ {(parseInt(totalCost * 0.1))} (GST) = </p>
                                 <p className="w-max ml-[5px] font-bold"> ₹ {totalCost + (parseInt(totalCost * 0.1))}</p>
                             </div>
-                            
+                        </div>
+
+                        <div className="flex mt-[10px]">
+                            <p className="font-bold">Order Status:</p>
+                            <p className="ml-[5px] font-semibold text-[#000000]">{totalDays < 5 ? "Order is in Queue" : 
+                                totalDays >= 5 && totalDays <= 7 ? "Order is shipping" : "Order has been delevered"}</p>
                         </div>
                     </div>
 
-                    <div className="mt-[1rem] h-[10px] w-full flex">
+                    <div className="mt-[5px] h-[10px] w-full flex">
                         <div className={`${totalDays < 5 ? "bg-[#e11b23] border-[#e11b23]" : 
                             totalDays >= 5 && totalDays <= 7 ? "bg-[#fa8202] border-[#fa8202]" :
                             "bg-[#117a7a] border-[#117a7a]"} w-1/3 h-full border-y-[1px] border-l-[1px] `}></div>

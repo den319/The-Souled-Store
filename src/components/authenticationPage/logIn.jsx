@@ -84,7 +84,8 @@ export default function LogIn() {
                 set_error_state("Password or email is incorrect");
             }
         } catch (error) {
-          console.log(error);
+        //   console.log(error);
+            navigate("/error");
         }
     }
 

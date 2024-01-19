@@ -45,7 +45,7 @@ export default function Navbar() {
                                         isActive ? "bg-white font-grey w-1/2 lg:w-min"
                                          : 
                                         "w-1/2 bc-red text-white border-x-[0.5px] border-black hover:bg-[#df7c7c] lg:w-min"}>
-                                            <div className="flex items-center justify-center w-full px-[25px] py-[12px]">
+                                            <div className="cursor-pointer flex items-center justify-center w-full px-[25px] py-[12px]">
                                                 {link}
                                             </div>
                                     </NavLink>

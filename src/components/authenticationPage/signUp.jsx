@@ -105,7 +105,8 @@ export default function SignUp() {
                 set_error_state("Registration failed");
             }
         } catch (error) {
-          console.log("error during sign-up: ", error);
+          navigate("/error");
+
         }
     }
 
