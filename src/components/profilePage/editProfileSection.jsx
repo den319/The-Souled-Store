@@ -1,10 +1,10 @@
 import { useContext, useState } from "react"
 import { UserContext } from "../../context/userContext"
 import { Link } from "react-router-dom";
-import { ModalContext } from "../../context/modalContext";
 import NavbarForProfile from "./navBarForProfile";
 import { updateUserInfo } from "../../utils/utilities";
 import GenderModal from "../modals/genderModal";
+import { userData } from "../../utils/apiUrl";
 
  
 
@@ -12,8 +12,7 @@ import GenderModal from "../modals/genderModal";
 
 export default function EditProfileSection() {
 
-    const { user, saveUser, token, projectId}= useContext(UserContext);
-    const {isMobile, userData}= useContext(ModalContext);
+    const { user, saveUser, token, projectId, isMobile}= useContext(UserContext);
 
     const nameArr= user?.name?.split(" ");
     const [name, setName]= useState(nameArr?.[0]);

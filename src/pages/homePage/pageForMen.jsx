@@ -1,10 +1,11 @@
 import { useContext } from "react";
-import { ImageContext } from "../../context/imageContext";
 import Categories from "../../components/homePage/categories";
 import OfficialMerchandise from "../../components/homePage/officialMerchandise";
 import ProductList from "../../components/homePage/productList";
-import { ModalContext } from "../../context/modalContext";
 import Carousel from "../../components/carousel/carousel";
+import { bigCorousalForMen, categories, merchandise } from "../../utils/imageLinks";
+import { UserContext } from "../../context/userContext";
+import { productUrl } from "../../utils/apiUrl";
 
 
 
@@ -12,8 +13,7 @@ import Carousel from "../../components/carousel/carousel";
 
 export default function PageForMen() {
 
-    const {productUrl, isMobile}= useContext(ModalContext);
-    const {bigCorousalForMen, categories, merchandise}= useContext(ImageContext);
+    const {isMobile}= useContext(UserContext);
     const trendingUrl= productUrl.filterProduct + `{"sellerTag":"trending", "gender":"Men"}&page=1&limit=20`;
     const bestSellerUrl= productUrl.filterProduct + `{"sellerTag":"best seller", "gender":"Men"}&page=1&limit=20`;
     const newArrivalUrl= productUrl.filterProduct + `{"sellerTag":"new arrival", "gender":"Men"}&page=1&limit=20`;

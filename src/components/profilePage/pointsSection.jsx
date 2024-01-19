@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { ModalContext } from "../../context/modalContext";
 import NavbarForProfile from "./navBarForProfile";
+import { UserContext } from "../../context/userContext";
 
 
 
 
 
 export default function PointsSection() {
-    const {isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
 
     return (
         <>

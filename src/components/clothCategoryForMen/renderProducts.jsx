@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ModalContext } from "../../context/modalContext";
+import { UserContext } from "../../context/userContext";
 
 
 
@@ -8,7 +8,7 @@ import { ModalContext } from "../../context/modalContext";
 
 export default function RenderProducts({list, isLoading}) {
 
-    const {isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
 
     const arr= new Array(19).fill("");
 

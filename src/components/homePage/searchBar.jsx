@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import SearchIcon from "../../assets/svg/searchIcon";
-import { ModalContext } from "../../context/modalContext";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
 
 
 
 
 export default function Searchbar() {
 
-    const {isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
 
     const [isHovered, setIsHovered]= useState(false);
 

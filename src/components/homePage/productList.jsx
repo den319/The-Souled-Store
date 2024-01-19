@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import useFetchList from "../../customHooks/useFetchList";
 import { mapDataForHomePage } from "../../utils/filterFunctions";
-import { useContext, useEffect, useRef, useState } from "react";
-import { ModalContext } from "../../context/modalContext";
+import { useContext, useRef, useState } from "react";
 import ChevronLeft from "../../assets/svg/chevronLeft";
 import ChevronRight from "../../assets/svg/chevronRight";
+import { UserContext } from "../../context/userContext";
 
 
 
@@ -13,7 +13,7 @@ import ChevronRight from "../../assets/svg/chevronRight";
 
 export default function ProductList({url, heading}) {
 
-    const {isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
 
     const slideRef= useRef(0);
 

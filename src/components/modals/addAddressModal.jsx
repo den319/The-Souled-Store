@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import CloseButton from "../../assets/svg/closeButton";
 import Portal from "../portal/portal";
-import { ModalContext } from "../../context/modalContext";
 import { UserContext } from "../../context/userContext";
 import { updateUserInfo } from "../../utils/utilities";
 import { useNavigate } from "react-router-dom";
+import { userData } from "../../utils/apiUrl";
 
 
 
@@ -14,11 +14,9 @@ import { useNavigate } from "react-router-dom";
 export default function AddAddressModal({ isOpen, onClose, heading }) {
 
     const {token, projectId, user, saveUser, set_user}= useContext(UserContext);
-    const {userData}= useContext(ModalContext);
 
     const navigate= useNavigate();
     
-    // console.log(user);
 
     const nameArr= user?.name?.split(" ");
     const [name, setName]= useState(nameArr?.[0]);
@@ -26,7 +24,6 @@ export default function AddAddressModal({ isOpen, onClose, heading }) {
 
     const [error, setError]= useState("");
 
-    // console.log(user);
 
     if (!isOpen) return null;
     const [userInfo, setUserInfo]= useState({
@@ -72,11 +69,9 @@ export default function AddAddressModal({ isOpen, onClose, heading }) {
             return;
         } 
 
-        // console.log("clicked")
         updateUserInfo(userData.updateData ,userInfo, user, set_user, token, projectId, onClose);
     } 
 
-    // console.log(user);
 
     return (
         <Portal effect={"backdrop-grayscale backdrop-blur-[4px] backdrop-brightness-50 animate-vertical-slide"}>

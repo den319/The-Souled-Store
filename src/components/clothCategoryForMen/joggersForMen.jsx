@@ -1,6 +1,5 @@
-import { useContext } from "react";
-import { ModalContext } from "../../context/modalContext";
 import RenderProductsInCategory from "./productsInCategoryForMen";
+import { productUrl } from "../../utils/apiUrl";
 
 
 
@@ -8,7 +7,6 @@ import RenderProductsInCategory from "./productsInCategoryForMen";
 
 
 export default function JoggersForMen() {
-    const {productUrl}= useContext(ModalContext);
 
     return (
         <RenderProductsInCategory 

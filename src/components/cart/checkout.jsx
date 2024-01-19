@@ -1,13 +1,13 @@
 import { useContext, useState } from "react"
 import { UserContext } from "../../context/userContext"
 import OrederBill from "./orderSectionForCart/OrderBill";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AddAddressModal from "../modals/addAddressModal";
 import DropDown from "./dropDown";
 import CreditCard from "./orderSectionForCart/creditCard";
 import NetBanking from "./orderSectionForCart/netbanking";
-import { ModalContext } from "../../context/modalContext";
-import { fetchOrderList, placeOrder, removeAllFromCart } from "../../utils/utilities";
+import { placeOrder, removeAllFromCart } from "../../utils/utilities";
+import { cartUrl, orderListUrl } from "../../utils/apiUrl";
 
 
 
@@ -17,9 +17,7 @@ import { fetchOrderList, placeOrder, removeAllFromCart } from "../../utils/utili
 export default function Checkout() {
 
     const isChecked= useParams();
-    const {user, itemsInCart, token, setItemsInCart, setTotalPrice, projectId, setOrderList, 
-        orderList}= useContext(UserContext);
-    const {isMobile, orderListUrl, cartUrl}= useContext(ModalContext);
+    const {user, itemsInCart, token, setItemsInCart, setTotalPrice, projectId, isMobile}= useContext(UserContext);
 
     const navigate= useNavigate();
 
@@ -54,7 +52,6 @@ export default function Checkout() {
     function handleOrder() {
         try {
             itemsInCart.forEach(item => {
-                // console.log(item);
                 placeOrder(orderListUrl.addOrder, item, user, token, projectId);
             })
 
@@ -67,8 +64,6 @@ export default function Checkout() {
         
     }
 
-    // console.log(orderList);
-     
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="flex justify-center w-full font-bold text-[10px] 

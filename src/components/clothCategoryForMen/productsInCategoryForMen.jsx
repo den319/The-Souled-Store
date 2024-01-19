@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { ModalContext } from "../../context/modalContext";
 import { UserContext } from "../../context/userContext";
 import { mapDataForHomePage } from "../../utils/filterFunctions";
 import RenderProducts from "./renderProducts";
@@ -13,8 +12,7 @@ import CloseButton from "../../assets/svg/closeButton";
 
 export default function RenderProductsInCategory({url, subCategory, heading, gender}) {
 
-    const {isMobile}= useContext(ModalContext);
-    const {projectId}= useContext(UserContext);
+    const {projectId, isMobile}= useContext(UserContext);
 
 
     const brands= [

@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { ModalContext } from "../../context/modalContext";
 import NavbarForProfile from "./navBarForProfile";
 import Address from "../common/address";
+import { UserContext } from "../../context/userContext";
 
 
 
@@ -10,7 +10,7 @@ import Address from "../common/address";
 
 
 export default function AddressSection() {
-    const {isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
     
 
     return (

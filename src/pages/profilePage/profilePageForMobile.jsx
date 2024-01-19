@@ -1,14 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/svg/logo";
 import { useContext } from "react";
-import { TagContext } from "../../context/tagContext";
 import { UserContext } from "../../context/userContext";
+import { optionsInAccountSection } from "../../utils/tags";
 
 
 
 
 export default function ProfilePageForMobile() {
-    const {optionsInAccountSection}= useContext(TagContext);
     const {user}= useContext(UserContext);
 
     return (

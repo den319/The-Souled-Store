@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react"
-import { ModalContext } from "../../context/modalContext"
 import Logo from "../../assets/svg/logo";
 import { Link, useNavigate } from "react-router-dom";
 import RenderNavbarTag from "./renderNavberTag";
@@ -10,9 +9,9 @@ import { UserContext } from "../../context/userContext";
 import Searchbar from "./searchBar";
 import CartIcon from "../../assets/svg/cartIcon";
 import CloseButton from "../../assets/svg/closeButton";
-import { TagContext } from "../../context/tagContext";
 import ChevronDown from "../../assets/svg/chevronDown";
 import ChevronUp from "../../assets/svg/chevronUp";
+import { apparelForKids, apparelForMen, apparelForWomen } from "../../utils/tags";
 
 
 
@@ -20,10 +19,8 @@ import ChevronUp from "../../assets/svg/chevronUp";
 
 export default function Apparel({list}) {
 
-    const {isMobile}= useContext(ModalContext);
-    const {apparelForMen, apparelForWomen, apparelForKids}= useContext(TagContext);
     const {isAuthenticated, setIsAuthenticated, save_user_and_token, whishlistItems, itemsInCart,
-        user}= useContext(UserContext);
+        user, isMobile}= useContext(UserContext);
 
     const [isHovered, setIsHovered]= useState(false);
 

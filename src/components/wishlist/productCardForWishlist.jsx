@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import useFetchSingleProduct from "../../customHooks/useFetchSingleProduct";
 import { useContext, useEffect, useState } from "react";
-import { ModalContext } from "../../context/modalContext";
 import CloseButton from "../../assets/svg/closeButton";
 import SizeModal from "../modals/sizeModal";
 import { manageWhishlist } from "../../utils/utilities";
 import { UserContext } from "../../context/userContext";
+import { productUrl } from "../../utils/apiUrl";
 
 
 
@@ -13,7 +13,6 @@ import { UserContext } from "../../context/userContext";
 
 export default function ProductCardForWishlist({product}) {
 
-    const {productUrl}= useContext(ModalContext);
     const {whishlistItems, setWhishlistItems, itemsInCart, token, projectId}= useContext(UserContext);
 
     const {productId, displayImage, price, productName, ratings}= product;
@@ -40,8 +39,6 @@ export default function ProductCardForWishlist({product}) {
             setIsPresentInCart(true);
         }
     },[])
-
-    // console.log("is present: ", isPresentInCart);
 
     return (
         <li key= {productId} className="relative m-[5px] cursor-pointer border border-[#999] rounded-[3px] sm:m-[10px] md:m-[1rem]">

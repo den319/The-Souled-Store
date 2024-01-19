@@ -81,7 +81,6 @@ export async function fetchOrderList(url, authToken, projectId, setOrderList) {
                     totalPrice: item?.order?.totalPrice,
                 }
             })
-            // console.log(mappedData);
             setOrderList(mappedData);
         } else {
             throw new Error("response is not ok");
@@ -173,9 +172,6 @@ export async function manageWhishlist(whishlistItems, setWhishlistItems, product
 export async function addInCart(itemsInCart, setItemsInCart, product, setTotalPrice, token, projectId, quantity, size) {
 
     const baseUrl= "https://academics.newtonschool.co/api/v1/ecommerce/cart/"
-    // console.log("quantity: ", quantity);
-    // console.log("size: ", size);
-
 
     try{
         var myHeaders = new Headers();
@@ -195,8 +191,6 @@ export async function addInCart(itemsInCart, setItemsInCart, product, setTotalPr
         redirect: 'follow'
         };
 
-        console.log
-
         const response= await fetch(baseUrl + `${product?.productId}`, requestOptions);
         const data= await response.json();
 
@@ -209,8 +203,6 @@ export async function addInCart(itemsInCart, setItemsInCart, product, setTotalPr
             setItemsInCart(newList);
 
             setTotalPrice(data?.data?.totalPrice);
-
-            // console.log("added: ", newList);
 
         } else {
             console.log("error for add operation: ", error);
@@ -250,7 +242,6 @@ export async function removeFromCart(itemsInCart, setItemsInCart, product, setTo
             setItemsInCart(newList);
             setTotalPrice(data?.data?.totalPrice);
 
-            // console.log("removed: ", newList);
         } else {
             console.log("error for remove operation: ", response);
         }
@@ -286,7 +277,6 @@ export async function removeAllFromCart(url, setItemsInCart, setTotalPrice, toke
             setItemsInCart(newList);
             setTotalPrice(data?.data?.totalPrice);
 
-            // console.log("removed: ", newList);
         } else {
             console.log("error for remove operation: ", response);
         }
@@ -365,8 +355,6 @@ export async function placeOrder(url, product, user, token, projectId) {
                 "zipCode": user.address[0]["zipCode"],
             },
         });
-
-        // console.log(user.address[0]["street"]);
 
         var requestOptions = {
             method: 'POST',

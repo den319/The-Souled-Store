@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
-import { TagContext } from "../../context/tagContext";
+import { optionsInAccountSection } from "../../utils/tags";
 
 
 
@@ -11,7 +11,6 @@ import { TagContext } from "../../context/tagContext";
 export default function ProfilePageForDeskTop() {
 
     const {setIsAuthenticated, save_user_and_token, user, token}= useContext(UserContext);
-    const {optionsInAccountSection}= useContext(TagContext);
 
     const navigate= useNavigate();
 

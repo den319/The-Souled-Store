@@ -5,9 +5,9 @@ import RefreshIcon from "../../assets/svg/refreshIcon";
 import Rupee from "../../assets/svg/rupee";
 import SnapchatIcon from "../../assets/svg/snapchatIcon";
 import TwitterIcon from "../../assets/svg/twitterIcon";
-import { ModalContext } from "../../context/modalContext";
 import PaymentImage from "../../assets/png/payments-icon.png";
 import CopyrightIcon from "../../assets/svg/copyrightIcon";
+import { UserContext } from "../../context/userContext";
 
 
 
@@ -15,7 +15,7 @@ import CopyrightIcon from "../../assets/svg/copyrightIcon";
 
 export default function Footer() {
 
-    const {isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
 
     const [date, setDate]= useState(new Date);
     const [year, setYEar]= useState(date.getFullYear());

@@ -1,7 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import useFetchSingleProduct from "../../customHooks/useFetchSingleProduct";
 import { useContext, useEffect, useState } from "react";
-import { ModalContext } from "../../context/modalContext";
 import parse from 'html-react-parser';
 import ChevronUp from "../../assets/svg/chevronUp";
 import ChevronDown from "../../assets/svg/chevronDown";
@@ -9,6 +8,7 @@ import ProductList from "../../components/homePage/productList";
 import { addInCart, findProduct, manageWhishlist } from "../../utils/utilities";
 import { UserContext } from "../../context/userContext";
 import Carousel from "../../components/carousel/carousel";
+import { productUrl } from "../../utils/apiUrl";
 
 
 
@@ -17,7 +17,7 @@ import Carousel from "../../components/carousel/carousel";
 
 export default function Product() {
 
-    const {productUrl, isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
     const {whishlistItems, setWhishlistItems, setItemsInCart, setTotalPrice, itemsInCart, token, projectId}= useContext(UserContext);
 
     const {productId}= useParams();

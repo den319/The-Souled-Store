@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { ModalContext } from "../../../context/modalContext";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../../context/userContext";
 
 
 
@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 
 export default function DeliverySection({date, list, totalDays}) {
-    const {isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
     const [totalCost, setTotalCost]= useState(0);
     
     
@@ -75,8 +75,6 @@ export default function DeliverySection({date, list, totalDays}) {
                         Object.entries(list).map(([idx, order], index) => {
                             const {orderData, product, shipmentDetails, totalPrice}= order;
                             const {displayImage, name, price, ratings, _id}= product;
-
-                            // console.log(price)
 
                             return (
                                 <div key={idx} className="border my-[1rem] sm:my-[2rem]">

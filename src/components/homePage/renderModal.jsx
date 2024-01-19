@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ModalContext } from "../../context/modalContext";
+import { UserContext } from "../../context/userContext";
 
 
 
@@ -11,7 +11,7 @@ export default function RenderModal(props) {
     const list= props.list;
     const handleState= props.handleState;
     
-    const {isMobile}= useContext(ModalContext);
+    const {isMobile}= useContext(UserContext);
 
     let i=0;
     return (

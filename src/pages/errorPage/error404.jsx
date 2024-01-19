@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 
@@ -16,6 +17,14 @@ export default function Error404() {
                     We can't seem to find the page you are looking for
                 </p>
             </div>
+
+            <button className="cursor-pointer border border-[#117a7a] rounded-[5px] 
+                bc-green font-green font-bold duration-500
+                hover:bg-white hover:text-[#117a7a]">  
+                <Link to={"/"}>
+                    Go Back Home
+                </Link>
+            </button>
         </div>
     )
 }

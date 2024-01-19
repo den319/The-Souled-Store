@@ -12,7 +12,6 @@ export default function SearchSection() {
 
     const navigate= useNavigate();
 
-    // console.log(pathArr);
 
     return (
         <div className="w-full min-h-[20rem]">

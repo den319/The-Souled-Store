@@ -4,8 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import Navbar from "./components/homePage/navbar";
 import PageForMen from "./pages/homePage/pageForMen";
 import PageForWomen from "./pages/homePage/pageForWomen";
-import PageForKids from "./pages/homePage/pageForKids";
-import { ModalContext } from "./context/modalContext";
 import Footer from "./components/homePage/footer";
 import AuthenticationPage from "./pages/loginPage/authenticationPage";
 import SignUp from "./components/authenticationPage/signUp";
@@ -31,7 +29,7 @@ import JoggersForMen from "./components/clothCategoryForMen/joggersForMen";
 import JeansForMen from "./components/clothCategoryForMen/jeansForMen";
 import Product from "./pages/productPage/product";
 import { filterCartData, filterwishlistData } from "./utils/filterFunctions";
-import { fetchAuthorizedData, fetchOrderList } from "./utils/utilities";
+import { fetchAuthorizedData } from "./utils/utilities";
 import Wishlist from "./pages/user/wishlist";
 import ArtSection from "./components/profilePage/artSection";
 import AddressSection from "./components/profilePage/addressSection";
@@ -44,16 +42,15 @@ import JumpsuitForWomen from "./components/clothCategoryForWomen/jumpsuitsForWom
 import JoggersForWomen from "./components/clothCategoryForWomen/joggersForWomen";
 import PantsForWomen from "./components/clothCategoryForWomen/pantsForWomen";
 import Apparel from "./components/homePage/apparel";
-import { TagContext } from "./context/tagContext";
 import SearchSection from "./components/profilePage/searchSection";
+import { apparelForMen, apparelForWomen } from "./utils/tags";
+import { cartUrl, whishlistUrl } from "./utils/apiUrl";
 
 function App() {
 
-  const {setIsMobile, isMobile, cartUrl, whishlistUrl, orderListUrl}= useContext(ModalContext);
-  const {save_user_and_token, isAuthenticated, setIsAuthenticated, projectId, user,
-        setItemsInCart, setWhishlistItems, whishlistItems, itemsInCart, 
-        setTotalPrice, activeTab, orderList, setOrderList}= useContext(UserContext);
-  const {apparelForWomen, apparelForMen}= useContext(TagContext);
+  const {save_user_and_token, setIsAuthenticated, projectId,
+        setItemsInCart, setWhishlistItems, setIsMobile, isMobile, 
+        setTotalPrice, activeTab}= useContext(UserContext);
 
 
   const navigate= useNavigate();
@@ -61,22 +58,26 @@ function App() {
 
   const [pathArr, setPathArr]= useState([]);
 
+  const [windowSize, setWindowSize]= useState(null);
+
+  useEffect(() => {
+    setWindowSize(window.innerWidth);
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 900) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
+      setWindowSize(window.innerWidth);
     };
   
     window.addEventListener("resize", handleResize);
-  
+    
     // Cleanup the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    setIsMobile(windowSize < 900);
+  }, [windowSize])
 
   useEffect(() => {
     navigate("/men");

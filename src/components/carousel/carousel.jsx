@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import ChevronLeft from "../../assets/svg/chevronLeft";
 import ChevronRight from "../../assets/svg/chevronRight";
 import useInterval from "../../customHooks/useInterval";
-import { ModalContext } from "../../context/modalContext";
+import { UserContext } from "../../context/userContext";
 
 
 
@@ -12,8 +12,8 @@ import { ModalContext } from "../../context/modalContext";
 
 export default function Carousel({list, effect}) {
 
-    const {isMobile}= useContext(ModalContext);
-
+    const {isMobile}= useContext(UserContext);
+    
     const [idx, setIdx]= useState(0);
 
     const n= list?.length;

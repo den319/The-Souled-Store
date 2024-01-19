@@ -1,13 +1,11 @@
-import { useContext } from "react";
-import { ModalContext } from "../../context/modalContext";
 import RenderProductsInCategory from "../clothCategoryForMen/productsInCategoryForMen";
+import { productUrl } from "../../utils/apiUrl";
 
 
 
 
 
 export default function TshirtsForWomen() {
-    const {productUrl}= useContext(ModalContext);
 
     return (
         <RenderProductsInCategory 
